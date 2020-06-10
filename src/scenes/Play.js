@@ -8,7 +8,10 @@ class Play extends Phaser.Scene {
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
+        this.load.image('danish', './assets/danish.png');
         // load spritesheet
+        this.load.spritesheet('gnome', './assets/gnome.png', {frameWidth: 32, frameHeight: 40, startFrame: 0, endFrame: 1});
+        this.load.spritesheet('grab', './assets/danish grab.png', {frameWidth: 60, frameHeight: 40, startFrame: 0, endFrame: 10})
         this.load.spritesheet('explosion', './assets/explosion.png',
             {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
@@ -24,26 +27,26 @@ class Play extends Phaser.Scene {
         this.add.rectangle(603, 5, 32, 455, 0xFACADE).setOrigin(0, 0);
 
         // green UI background
-        this.add.rectangle(37, 42, 566, 64, 0x00FF00).setOrigin(0, 0);
+        this.add.rectangle(37, 42, 566, 64, 0xFACADE).setOrigin(0, 0);
 
         // add rocket (p1)
-        this.p1Rocket = new Rocket(this, game.config.width/2, 431, 'rocket').setScale(0.5, 0.5).setOrigin(0, 0);
+        this.p1Rocket = new Rocket(this, game.config.width/2, 431, 'gnome').setOrigin(0, 0);
 
         // add spaceships
-        this.ship01 = new Spaceship(this, game.config.width +192, 132, 'spaceship', 0, 30).setOrigin(0, 0);
-        this.ship02 = new Spaceship(this, game.config.width +96, 196, 'spaceship', 0, 20).setOrigin(0, 0);
-        this.ship03 = new Spaceship(this, game.config.width, 260, 'spaceship', 0, 10).setOrigin(0, 0);
+        this.ship01 = new Spaceship(this, game.config.width +192, 132, 'danish', 0, 30).setOrigin(0, 0);
+        this.ship02 = new Spaceship(this, game.config.width +96, 196, 'danish', 0, 20).setOrigin(0, 0);
+        this.ship03 = new Spaceship(this, game.config.width, 260, 'danish', 0, 10).setOrigin(0, 0);
 
         // define keyboard keys
-        keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+        keyJ = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.J);
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
 
         // animation config
         this.anims.create({
-            key: 'explode',
-            frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 9, first: 0}),
-            frameRate: 30
+            key: 'grab',
+            frames: this.anims.generateFrameNumbers('grab', { start: 0, end: 10, first: 0}),
+            frameRate: 10
         });
 
         // score
@@ -80,7 +83,7 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
         // check key input for restart
-        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyF)) {
+        if (this.gameOver && Phaser.Input.Keyboard.JustDown(keyJ)) {
             this.scene.restart(this.p1Score);
         }
 
@@ -122,8 +125,8 @@ class Play extends Phaser.Scene {
     shipExplode(ship) {
         ship.alpha = 0;                         // temporarily hide ship
         // create explosion sprite at ship's position
-        let boom = this.add.sprite(ship.x, ship.y, 'explosion').setOrigin(0, 0);
-        boom.anims.play('explode');             // play explode animation
+        let boom = this.add.sprite(ship.x, ship.y, 'grab').setOrigin(0, 0);
+        boom.anims.play('grab');             // play explode animation
         boom.on('animationcomplete', () => {    // callback after animation completes
             ship.reset();                       // reset ship position
             ship.alpha = 1;                     // make ship visible again

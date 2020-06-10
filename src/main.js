@@ -14,4 +14,4 @@ game.settings = {
 }
 
 // reserve some keyboard variables
-let keyF, keyLEFT, keyRIGHT;
+let keyJ, keyLEFT, keyRIGHT;
