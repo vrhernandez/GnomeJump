@@ -5,15 +5,11 @@ class Play extends Phaser.Scene {
 
     preload() {
         // load images/tile sprite
-        this.load.image('rocket', './assets/rocket.png');
-        this.load.image('spaceship', './assets/spaceship.png');
-        this.load.image('starfield', './assets/starfield.png');
+        this.load.image('starfield', './assets/danish field.png');
         this.load.image('danish', './assets/danish.png');
         // load spritesheet
         this.load.spritesheet('gnome', './assets/gnome.png', {frameWidth: 32, frameHeight: 40, startFrame: 0, endFrame: 1});
         this.load.spritesheet('grab', './assets/danish grab.png', {frameWidth: 60, frameHeight: 40, startFrame: 0, endFrame: 10})
-        this.load.spritesheet('explosion', './assets/explosion.png',
-            {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9});
     }
 
     create() {
