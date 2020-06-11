@@ -1,3 +1,7 @@
+// Modifications:
+// Created a new scrolling tile sprite for the background (10)
+// Created new artwork for all of the in-game assets (rocket, spaceships, explosion) (25)
+
 let config = {
     type: Phaser.CANVAS,
     width: 640,
